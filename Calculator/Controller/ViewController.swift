@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var displayLabel: UILabel!
     private var isFinishedTypingNumber : Bool = true
     private var displayValue: Double {
         get {
@@ -22,9 +23,8 @@ class ViewController: UIViewController {
             displayLabel.text = String(newValue)
         }
     }
-    var number : String = ""
+    //var number : String = ""
     
-    @IBOutlet weak var displayLabel: UILabel!
     
     private var calculator = CalculatorLogic()
     
@@ -37,14 +37,10 @@ class ViewController: UIViewController {
         
         if let calcMethod = sender.currentTitle {
             
-            
-            guard let result = calculator.calculate(symbol: calcMethod) else {
-                fatalError("The results of the calculation is nil")
+            if let result = calculator.calculate(symbol: calcMethod) {
+                displayValue = result
             }
-            displayValue = result
         }
-        
-    
     }
 
     
@@ -62,8 +58,6 @@ class ViewController: UIViewController {
                     
                     if !isInt {
                         return
-                    } else {
-                        
                     }
                 }
                 displayLabel.text = displayLabel.text! + numValue
